@@ -1,0 +1,52 @@
+<%- include('../../layout/header') %>
+
+    <main class="main">
+        <div class="categories container">
+            <h1>Quản lý danh mục</h1>
+            <div class="first-search">
+                <a class="btn btn-primary" href="/admin/categories/new">Thêm danh mục mới</a>
+            </div>
+    
+    
+            <table class="table table-striped table-light">
+                <thead>
+                    <tr class="table-dark">
+                        <th scope="col">ID</th>
+                        <th scope="col">Category Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col" class="th" colspan="2" style="text-align: center;">More</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% categories.forEach(item => { %>
+                        <tr>
+                            <th scope="row"><%= item.id %></th>
+                            <td><%= item.name %></td>
+                            <td><%= item.description %></td>
+                            <td class="more">
+                                <a class="btn-delete-category btn btn-dark" href="/admin/categories/edit/<%= item.id %>">Update </a>
+                            </td>
+                            <td class="more">
+                                <button class="btn-delete-category btn btn-dark" value="" onclick="confirmDeleteCategory('<%= item.id %>')">Delete</button>
+                            </td>
+                        </tr>
+                        <% }) %>
+                </tbody>
+                <div class="form-delete none-active">
+                    <form action="" method="POST"> 
+                        <div class="form-group">
+                            <span>Xác nhận xóa?</span>
+                            <input id="id-update" type="hidden" name="id-xoa" value="">
+                            <div class="confirm">
+                                <a id="confirmDelete" href="">Xóa</a>
+                                <div class="none" >Hủy</div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </table>
+    
+            </div>
+    </main>
+    <script src="/js/admin.js"></script>
+  <%- include('../../layout/footer') %>

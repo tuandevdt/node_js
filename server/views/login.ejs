@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> <!-- Nhúng Axios -->
+    <link rel="stylesheet" href="login.css">
+    <title>Login</title>
+</head>
+<body>
+    <div class="container">
+        <div class="form_wrapper">
+            <div class="form_container">
+                <div class="row clearfix">
+                    <div class="">
+                        <form action="/register" method="POST" class="<%= noneRegister %>">
+                            <div class="title_container">
+                                <h2>Register</h2>
+                            </div>
+                            <div class="input_field"> 
+                                <span><i class='bx bxs-user'></i></span>
+                                <input type="text" name="username" placeholder="Username" required />
+                                <% if (validatorError && validatorError.username) { %>
+                                    <div class="error"><%= validatorError.username %></div>
+                                <% } %>
+                            </div>
+                            <div class="input_field"> 
+                                <span><i class='bx bx-envelope'></i></span>
+                                <input type="email" name="email" placeholder="Email" required />
+                                <% if (validatorError && validatorError.email) { %>
+                                    <div class="error"><%= validatorError.email %></div>
+                                <% } %>
+                            </div>
+                            <div class="input_field"> 
+                                <span><i class='bx bx-lock'></i></span>
+                                <input type="password" name="password" placeholder="Password" required />
+                                <% if (validatorError && validatorError.password) { %>
+                                    <div class="error"><%= validatorError.password %></div>
+                                <% } %>
+                            </div>
+                            <!-- <div class="input_field"> 
+                                <span><i class='bx bx-lock'></i></span>
+                                <input type="password" name="re_password" placeholder="Re-type Password" required />
+                            </div> -->
+                            <!-- <div class="row clearfix">
+                                <div class="col_half">
+                                    <div class="input_field"> 
+                                        <span><i class='bx bx-user'></i></span>
+                                        <input type="text" name="first_name" placeholder="First Name" />
+                                    </div>
+                                </div>
+                                <div class="col_half">
+                                    <div class="input_field"> 
+                                        <span><i class='bx bx-user'></i></span>
+                                        <input type="text" name="last_name" placeholder="Last Name" required />
+                                    </div>
+                                </div>
+                            </div> -->
+                            <input class="button" type="submit" value="Register" />
+                            <a class="btn btn-dark" href="/">Login</a>
+                        </form>
+                        <form action="/" method="POST" class="<%= noneLogin %>">
+                            <div class="title_container">
+                                <h2>Login</h2>
+                            </div>
+                            <div class="input_field"> 
+                                <span><i class='bx bx-envelope'></i></span>
+                                <input type="email" name="email" placeholder="Email" required />
+                                <% if (validatorError && validatorError.email) { %>
+                                    <div class="error"><%= validatorError.email %></div>
+                                <% } %>
+                                <% if (validatorError && validatorError.role) { %>
+                                    <div class="error"><%= validatorError.role %></div>
+                                <% } %>
+                            </div>
+                            <div class="input_field"> 
+                                <span><i class='bx bx-lock'></i></span>
+                                <input type="password" name="password" placeholder="Password" required />
+                            </div>
+                            <input class="button" type="submit" value="Login" />
+                            <a class="btn btn-dark" href="/register">Register</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% if (access === 'false') { %>
+        <script>
+          setTimeout(function() {
+            alert('Bạn không có quyền truy cập!!!');
+          }, 100); // Trì hoãn 100ms
+        </script>
+      <% } %>
+      <% if (accessToken !== null && refreshToken !== null) { %>
+        <script>
+            console.log("Access Token:", "<%= accessToken %>");
+            console.log("Refresh Token:", "<%= refreshToken %>");
+            let accessToken = `<%= accessToken %>`;
+            console.log(accessToken);
+            
+            localStorage.setItem('accessToken', "<%= accessToken %>");
+            localStorage.setItem('refreshToken', "<%= refreshToken %>");
+            console.log('Tokens saved to localStorage');
+                
+            async function checkTokenLogin() {
+                try {
+                const response = await axios.get('http://localhost:4000/v1/api/users/me', {
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`, 
+                    },
+                });
+
+                console.log(response);
+                
+                if (response.status === 200) {
+                    window.location.href = "http://localhost:4000/admin";
+                }
+            } catch (error) {
+                console.log(error);
+                // Có thể thêm logic xử lý lỗi tại đây
+            } 
+            }
+            checkTokenLogin()
+          </script>
+    <% } %>
+</body>
+</html>

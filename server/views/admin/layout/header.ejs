@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/admin.css">
+  <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
+  <script src="/bootstrap/js/bootstrap.min.js"></script>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <title>Admin</title>
+</head>
+
+<body>
+  <header class="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow py-3 text-white" data-bs-theme="dark">
+    <div class="container">
+      <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" href="/">Watch Store</a>
+
+      <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+        <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+      </form>
+      <div id="text-login"></div>
+    </div>
+  </header>
+
+  <div class="rows">
+    <div class="sidebar">
+      <h3>Menu</h3>
+      <ul class="list-unstyled">
+        <li><a href="/admin">Dashboard</a></li>
+        <li><a href="/admin/users">Users</a></li>
+        <li><a href="/admin/categories">Categories</a></li>
+        <li><a href="/admin/products">Products</a></li>
+        <li><a href="/admin/orders">Orders</a></li>
+        <li><a href="/admin/reviews">Comments</a></li>
+      </ul>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script type="module">
+
+      (async () => {
+        const accessToken = localStorage.getItem('accessToken');
+        try {
+          const response = await axios.get('http://localhost:4000/v1/api/users/me', {
+            headers: {
+              'Authorization': `Bearer ${accessToken}`,
+            },
+          });
+
+          if (response.status !== 200) {
+            throw new Error("Token không tồn tại trong phản hồi");
+          }
+
+          const username = response.data.username;
+          document.querySelector('#text-login').innerHTML = `
+            <div class="dropdown text-end">
+              <a id="username" href="#">
+                <span id="username" class="text-white">
+                  ${username}
+                </span>
+              </a>
+              <ul class="dropdown-menu text-small show none-drop none-active" aria-labelledby="dropdownUser1"
+                style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(0px, 30px);"
+                data-popper-placement="bottom-start">
+                <li><a class="dropdown-item" href="#">Settings</a></li>
+                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><button class="dropdown-item" onclick="logout()" id="logout-button">Sign out</button></li>
+              </ul>
+            </div>
+          `;
+          document.getElementById('logout-button').addEventListener('click', logout);
+          document.getElementById('username').addEventListener('mouseenter', MouseEnters);
+
+        } catch (error) {
+          if (error.response && error.response.status == 403) {
+            // Token không hợp lệ hoặc đã hết hạn
+            // Xử lý logic để lấy token mới
+            await refreshToken();
+
+            const newResponse = await axios.get("http://localhost:4000/v1/api/users/me", {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+              },
+            });
+            console.log('newResponse', newResponse);
+
+            return newResponse.data;
+          } else {
+            console.error("Lỗi khi xác thực phiên admin:", error);
+            document.querySelector('#text-login').innerHTML = `
+            <button class='font-semibold text-[15px] border-none outline-none'>
+              <a href='http://localhost:4000/' class='text-[#007bff] hover:underline'>Login</a>
+            </button>
+          `;
+            throw error;
+          }
+
+        }
+      })();
+
+      async function refreshToken() {
+        const response = await axios.post("http://localhost:4000/v1/api/users/refreshToken", {
+          refreshToken: localStorage.getItem("refreshToken"),
+        });
+        console.log('response refreshtoken', response);
+        try {
+
+
+          localStorage.setItem("accessToken", response.data.accessToken);
+          localStorage.setItem("refreshToken", response.data.refreshToken);
+        } catch (error) {
+          console.error("Không thể lấy token mới", error);
+          throw error;
+        }
+      }
+
+      async function logout() {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        window.location.href = "http://localhost:4000/";
+      }
+
+      function MouseEnters() {
+        document.querySelector(".none-drop").classList.remove('none-active');
+        document.querySelector("#username").addEventListener("mouseleave", () => {
+          document.querySelector(".none-drop").classList.add('none-active');
+        });
+
+        const dropdownMenu = document.querySelector(".dropdown-menu");
+        dropdownMenu.addEventListener("mouseenter", () => {
+          document.querySelector(".none-drop").classList.remove('none-active');
+        });
+        dropdownMenu.addEventListener("mouseleave", () => {
+          document.querySelector(".none-drop").classList.add('none-active');
+        });
+      }
+    </script>
+  </div>
+</body>
+
+</html>

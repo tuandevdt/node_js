@@ -1,0 +1,108 @@
+<%- include('../layout/header') %>
+<main class="container">
+    <div class="container mt-4">
+        <h2>Post List</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>Text</th>
+                    <th>Updated at</th>
+                    <th>Actions</th> <!-- Cột mới cho các hành động -->
+                </tr>
+            </thead>
+            <tbody>
+                <% if (blogs.length > 0) { %>
+                    <% blogs.forEach(item => { %>
+                        <tr>
+                            <td><%= item.id %></td>
+                            <td><%= item.title %></td>
+                            <td><%= item.text %></td>
+                            <td><%= item.createdAt %></td>
+                            <td>
+                                <!-- Nút sửa -->
+                                <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editPostModal<%= item.id %>">Edit</button>
+                                <!-- Nút xóa -->
+                                <form action="/blogs/delete/<%= item.id %>" method="post" style="display:inline;">
+                                    <input type="hidden" name="_method" value="delete"> <!-- Trường ẩn để chỉ định DELETE -->
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+
+                        <!-- Modal sửa -->
+                        <div class="modal fade" id="editPostModal<%= item.id %>" tabindex="-1" role="dialog" aria-labelledby="modalLabel<%= item.id %>" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <form action="/blogs/edit/<%= item.id %>" method="post">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="modalLabel<%= item.id %>">Edit Post</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label for="editPostTitle<%= item.id %>">Title</label>
+                                                <input type="text" class="form-control" id="editPostTitle<%= item.id %>" name="title" value="<%= item.title %>" placeholder="Enter title">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="editPostBody<%= item.id %>">Text</label>
+                                                <textarea class="form-control" id="editPostBody<%= item.id %>" rows="3" name="text" placeholder="Enter text"><%= item.text %></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-success">Save changes</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    <% }) %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="5">No blogs available</td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+        
+        <button class="btn btn-primary" data-toggle="modal" data-target="#newPostModal">New Post</button>
+    
+        <!-- Modal thêm mới -->
+        <div class="modal fade" id="newPostModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <form action="/blogs/new" method="post">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalLabel">New Post</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="postTitle">Title</label>
+                                <input type="text" class="form-control" id="postTitle" name="title" placeholder="Enter title">
+                            </div>
+                            <div class="form-group">
+                                <label for="postBody">Text</label>
+                                <textarea class="form-control" id="postBody" rows="3" name="text" placeholder="Enter text"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Send</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</main>
+<%- include('../layout/footer') %>

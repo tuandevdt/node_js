@@ -1,0 +1,16 @@
+<%- include('../../layout/header') %>
+    <main class="main">
+        <div class="categories">
+            <h1>Cập nhật danh mục</h1>
+            <form action="/admin/categories/update/<%= data[0].id%>" method="POST">
+                <label for="">Category Name</label>
+                <!-- <input type="hidden" name="id" value="<%= data[0].id%>"> -->
+                <input type="text" class="form-control" name="name" placeholder="Enter Name" value="<%= data[0].name%>">
+                <label for="">Description</label>
+                <input type="text" class="form-control" name="description" placeholder="Description"
+                    value="<%= data[0].description%>">
+                <button class="btn btn-dark">Submit</button>
+            </form>
+        </div>
+    </main>
+    <%- include('../../layout/footer') %>

@@ -1,0 +1,189 @@
+<%- include('../layout/header') %>
+
+    <main class="main dashboard">
+        <div class="title-dashboard">
+            <h1>Tổng quan về website</h1>
+        </div>
+        <div class="statistical">
+            <div class="data">
+                <div class="content-data">
+                    <div class="first-data">
+                        <div class="quantity-data">
+                            <h5><a href="">
+                                    <%= users.length %>
+                                </a></h5>
+                        </div>
+                        <div class="infor">
+                            <span>Khách hàng</span>
+                        </div>
+                    </div>
+                    <div class="second-data">
+                        <a href=""><i class='bx bxs-user'></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="data">
+                <div class="content-data">
+                    <div class="first-data">
+                        <div class="quantity-data">
+                            <h5><a href="">
+                                    <%= products.length %>
+                                </a></h5>
+
+                        </div>
+                        <div class="infor">
+                            <span>Sản phẩm</span>
+                        </div>
+                    </div>
+                    <div class="second-data">
+                        <a href=""><i class='bx bxs-bar-chart-alt-2'></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="data">
+                <div class="content-data">
+                    <div class="first-data">
+                        <div class="quantity-data">
+                            <h5><%= categories.length %></h5>
+
+                        </div>
+                        <div class="infor">
+                            <span>Danh mục</span>
+                        </div>
+                    </div>
+                    <div class="second-data">
+                        <i class='bx bxs-low-vision'></i>
+                    </div>
+                </div>
+            </div>
+            <div class="data">
+                <div class="content-data">
+                    <div class="first-data">
+                        <div class="quantity-data">
+                            <h5><a href="">
+                                    <%= orders.length %>
+                                </a></h5>
+
+                        </div>
+                        <div class="infor">
+                            <span>Đơn hàng</span>
+                        </div>
+                    </div>
+                    <div class="second-data">
+                        <a href=""><i class='bx bxs-file-export'></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="canvas-container">
+            <div class="first-canvas">
+                <div class="canvas-width">
+                    <h4>Thống kê giá sản phẩm theo danh mục</h4>
+                    <canvas class="chair-width" id="canvas-top" width="200" height="130"></canvas>
+                </div>
+
+                <div class="canvas-circle">
+                    <h4>Thống kê đơn hàng</h4>
+                    <canvas class="chair-width" id="canvas-circle" width="200" height="100"></canvas>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script>
+        // const users = <%= users %>
+        // console.log('users', users);
+        
+        const ctx_circle = document.getElementById('canvas-circle');
+        const ctx_top = document.getElementById('canvas-top');
+        const ctx = document.getElementById('canvas')
+        //Biểu đồ tròn
+        new Chart(ctx_circle, {
+        type: 'pie',
+        data: {
+            labels: ['Chờ xác nhận', 'Đã xác nhận', 'Đang vận chuyển', 'Đã giao', 'Đã hủy đơn'],
+            datasets: [{
+                label: 'Tổng đơn: ',
+                data: `<%= JSON.stringify(chartData) %>`,
+                borderWidth: 1,
+                backgroundColor: [
+                    'rgba(255, 0, 0, 0.7)', 
+                    'rgba(0, 0, 255, 0.7)', 
+                    'rgba(255, 255, 0, 0.7)', 
+                    'rgba(0, 128, 0, 0.7)', 
+                    'rgba(128, 0, 128, 0.7)'
+                ]
+            }],
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+        //Biểu đồ top category
+        new Chart(ctx_top, {
+        type: 'bar',
+        data: {
+            labels: [
+                'Max Men Watch',
+                'Min Men Watch',
+                'Average Men Watch',
+                'Max Women Watch',
+                'Min Women Watch',
+                'Average Women Watch',
+                'Max Kid Watch',
+                'Min Kid Watch',
+                'Average Kid Watch',
+            ],
+            datasets: [{
+                label: 'Giá Sản Phẩm',
+                data: [
+                    `<%= productData[0] %>`, // Max Price Men Watch
+                    `<%= productData[1] %>`, // Min Price Men Watch
+                    `<%= productData[2] %>`, // Average Price Men Watch
+                    `<%= productData[3] %>`, // Max Price Women Watch
+                    `<%= productData[4] %>`, // Min Price Women Watch
+                    `<%= productData[5] %>`, // Average Price Women Watch
+                    `<%= productData[6] %>`, // Max Price Kid Watch
+                    `<%= productData[7] %>`, // Min Price Kid Watch
+                    `<%= productData[8] %>`, // Average Price Kid Watch
+                ],
+                borderWidth: 1,
+                backgroundColor: [
+                    'rgba(255, 0, 0, 0.6)', 
+                    'rgba(0, 0, 255, 0.6)', 
+                    'rgba(255, 255, 0, 0.6)',
+                    'rgba(255, 0, 0, 0.6)', 
+                    'rgba(0, 0, 255, 0.6)', 
+                    'rgba(255, 255, 0, 0.6)',
+                    'rgba(255, 0, 0, 0.6)', 
+                    'rgba(0, 0, 255, 0.6)', 
+                    'rgba(255, 255, 0, 0.6)',
+                ]
+            }],
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            },
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Thống Kê Giá Các Loại Đồng Hồ'
+                }
+            }
+        }
+    });
+    </script>
+    <%- include('../layout/footer') %>

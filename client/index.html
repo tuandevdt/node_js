@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
+  <title>G-Shock</title>
+</head>
+
+<body>
+  
+    <div id="app"></div>
+
+  <script type="module" src="/main.js"></script>
+  <script>
+    function prevFunction() {
+      let listSlider = document.querySelectorAll('.img-slider');
+      document.getElementById('slider-main').prepend(listSlider[listSlider.length - 1]);
+    }
+    function nextFunction() {
+      let listSlider = document.querySelectorAll('.img-slider');
+      document.getElementById('slider-main').appendChild(listSlider[0]);
+    }
+
+    function prevProducts1() {
+    let listSlider = document.querySelectorAll('.img-products1');
+    document.getElementById('slider1').prepend(listSlider[listSlider.length - 1]);
+  }
+  function nextProducts1() {
+    let listSlider = document.querySelectorAll('.img-products1');
+    document.getElementById('slider1').appendChild(listSlider[0]);
+  }
+
+    function prevProducts2() {
+    let listSlider = document.querySelectorAll('.img-products2');
+    document.getElementById('slider2').prepend(listSlider[listSlider.length - 1]);
+  }
+  function nextProducts2() {
+    let listSlider = document.querySelectorAll('.img-products2');
+    document.getElementById('slider2').appendChild(listSlider[0]);
+  }
+
+    function prevProducts3() {
+    let listSlider = document.querySelectorAll('.img-products3');
+    document.getElementById('slider3').prepend(listSlider[listSlider.length - 1]);
+  }
+  function nextProducts3() {
+    let listSlider = document.querySelectorAll('.img-products3');
+    document.getElementById('slider3').appendChild(listSlider[0]);
+  }
+  
+  
+  </script>
+<script type="module">
+import axios from "axios"
+
+  async function logout(e) {
+    e.preventDefault();
+    try {
+        const response = await axios.post('http://localhost:4000/v1/api/session/logout', {}, {
+            withCredentials: true
+        });
+        alert("Logout Success");
+        document.querySelector('#text-login').innerHTML = `
+            <button class='font-semibold text-[15px] border-none outline-none'>
+                <a href='http://localhost:4000/' class='text-[#007bff] hover:underline'>Login</a>
+            </button>
+        `;
+        window.location.href="http://localhost:4000/";
+    } catch (error) {
+        console.error("Error during logout:", error);
+    }
+  }
+</script>
+</body>
+
+</html>

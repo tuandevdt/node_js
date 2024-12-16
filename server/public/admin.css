@@ -1,0 +1,431 @@
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  h1 {
+    text-align: center;
+  }
+  a {
+    text-decoration: none !important;
+  }
+  .rows {
+    min-height: 100vh;
+    display: flex;
+  }
+  .sidebar {
+    width: 20%;
+    background-color: #343a40;
+    color: white;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding-top: 80px;
+  }
+  .sidebar h3 {
+    padding-left: 25px;
+  }
+  .dashboard {
+    width: 100%;
+    min-height: 100vh;
+}
+.dashboard .title-dashboard {
+    width: 100%;
+}
+.dashboard .title-dashboard h1{
+    text-align: center;
+    width: 100%;
+    color: rgb(12, 12, 12);
+}
+.dashboard .statistical {
+    width: 100%;
+    padding: 1% 0%;
+    display: flex;
+    justify-content: space-between;
+}
+.statistical .data {
+    width: 23%;
+    height: max-content;
+    padding: 3% 2%;
+    background: #343a40;
+    color: black;
+    color: white;
+    border-radius: 5px;
+}
+.statistical .data:nth-child(1) {
+    background: radial-gradient(circle at 10% 20%, rgb(255, 131, 61) 0%, rgb(249, 183, 23) 90%);
+}
+.statistical .data:nth-child(2) {
+    background: linear-gradient(90deg, rgba(35,194,2,1) 0%, rgba(174,238,107,1) 100%);
+}
+.statistical .data:nth-child(3) {
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(251,15,103,1) 0%, rgba(231,155,195,1) 100%);
+}
+.statistical .data:nth-child(4) {
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(2,138,86,1) 0%, rgba(37,164,115,1) 47%, rgba(98,246,190,1) 100%);
+}
+.data .content-data {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    line-height: 3rem;
+    line-height: 100%;
+}
+.data a {
+    color: white;
+}
+.data a:hover {
+    text-decoration: none;
+}
+.data .content-data .first-data{
+    width: 50%;
+    line-height: 100%;
+}
+.data .content-data .first-data h5 {
+    font-size: 2rem;
+}
+.data .content-data .second-data{
+    width: 40%;
+    line-height: 100%;
+    font-size: 4rem;
+}
+.dashboard .canvas-container{
+    width: 100%;
+    padding: 1% 0%;  
+}
+.dashboard .canvas-container .first-canvas {
+    width: 100%;
+    display: flex;
+    justify-content: space-between; 
+    margin-bottom: 1.5rem;
+}
+.canvas-container .canvas-width {
+    width: 58%;
+    border: 1px solid #b6b6b6;
+    padding: 2%;
+    border-radius: 5px;
+    background: #f8f9fa;
+}
+.canvas-container .canvas-width h4 {
+    width: 100%;
+    color: #343a40;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+.canvas-container .canvas-width canvas {
+    width: 100%;
+}
+.canvas-container .canvas-circle {
+    width: 40%;
+    border: 1px solid #b6b6b6;
+    padding: 2%;
+    border-radius: 5px;
+    background: #f8f9fa;
+    color: #343a40;
+}
+.canvas-container .canvas-circle h4 {
+    width: 100%;
+    text-align: center;
+}
+.canvas-container .canvas-circle canvas {
+    width: 100%;
+}
+.first-canvas .width-b {
+    width: 100%;
+    max-height: 500px;
+}
+.canvas-container {
+    width: 100%;
+    max-height: 500px;
+}
+
+.canvas-container canvas {
+    width: 100% !important;
+    height: 100%;
+}
+.dashboard{
+    width: 100%;
+    padding-right: 1.5%;
+}
+
+  .list-unstyled li {
+    line-height: 50px; 
+    padding-left: 25px;
+    transition: all .5s;
+    cursor: pointer;
+    font-weight: 600;
+    }
+    .list-unstyled li a {
+        color: rgb(197, 197, 197);
+        display: block;
+    }
+  .list-unstyled li:hover {
+    padding-left: 30px;
+    background: #272b30;
+    }
+  .list-unstyled li:hover a{
+    color: white;
+    }
+    /* .none-drop {
+        display: none;
+    } */
+     .container .dropdown {
+        height: 34px !important;
+        
+     }
+     .container .dropdown a {
+        height: 100%;
+        display: flex;
+        align-items: center;
+     }
+    .container a #username {
+        height: 34px;
+    }
+  .main {
+    width: 80%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding-top: 80px;
+    min-height: 100vh;
+    padding-left: 20px;
+  }
+  @media (max-width: 768px) {
+    .sidebar {
+        min-width: 100px;
+    }
+    .sidebar h3 {
+        font-size: 1.2rem;
+    }
+  }
+  .form-delete, .form-update {
+    padding: 50px 20px;
+    border-radius: 10px;
+    background: #343a40;
+    width: 50%;
+    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 35%;
+    transform: translateY(-50%);
+    color: white;
+  }
+  .form-delete .form-group {
+    display: flex;
+    flex-direction: column;
+}
+  .form-update .form-group {
+    display: flex;
+    flex-direction: column;
+}
+.form-update #status-update {
+    padding: 5px;
+    margin: 10px 0px;
+    text-align: center;
+}
+.form-delete .form-group .confirm {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+.form-update .form-group .confirm {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+.form-update button {
+    border: none;
+    outline: none;
+    background: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    color: #007bff;
+    width: 100%;
+    padding: 8px 0px;
+    border-radius: 5px;
+}
+.form-update button:hover {
+    background: white;
+}
+.form-delete .form-group .confirm button {
+    border: none;
+    outline: none;
+    background: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    color: #007bff;
+}
+.confirm #confirmDelete {
+    background: rgba(255, 255, 255, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: #007bff;
+}
+.form-delete .form-group .confirm #confirmDelete:hover {
+    background: white;
+}
+.form-delete .form-group .confirm .none:hover {
+    background: white;
+}
+.form-delete .form-group span {
+    color: white;
+    width: 100%;
+    text-align: center;
+    line-height: 20px;
+    font-size: 2rem;
+    margin-bottom: 25px;
+}
+.form-delete .form-group .confirm .none{
+    background: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    color: #007bff;
+    padding: 10px 0px;
+    border-radius: 5px;
+}
+.form-delete .form-group select {
+    text-align: center;
+    border: 0;
+    outline: none;
+    padding: 5px 0px;
+}
+.form-delete .btn-close {
+    position: absolute;
+    top: -2%;
+    right: 0;
+    font-size: 2rem;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.6);
+}
+.form-delete .btn-close:hover {
+    color: white;
+}
+.none-active {
+    display: none !important;
+}
+.form-error-status {
+    padding: 50px 20px;
+    padding-bottom: 30px;
+    border-radius: 10px;
+    background: #343a40;
+    width: 50%;
+    position: fixed;
+    top: 50%;
+    left: 35%;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    color: red;
+}
+.form-error-status button {
+    border: none;
+    outline: none;
+    background: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    color: #007bff;
+    padding: 10px 55px;
+    margin-top: 20px;
+}
+.form-error-status button:hover {
+    background-color: white;
+}
+
+.form-delete {  
+    padding: 50px 20px;
+    border-radius: 10px;
+    background: #343a40;
+    width: 50%;
+    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 35%;
+    transform: translateY(-50%);
+    color: white;
+}
+table .img-detail img {
+    height: 100px;
+}
+.infor-order {
+    text-align: left;
+    margin-bottom: 20px;
+    line-height: 2rem;
+}
+.title-detail {
+    width: 100%;
+    position: relative;
+    height: max-content;
+}
+.title-detail .prev-order {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+}
+.form-delete .form-group {
+    display: flex;
+    flex-direction: column;
+}
+.form-delete .form-group .confirm {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+.form-delete .form-group .confirm button {
+    border: none;
+    outline: none;
+    background: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    color: #007bff;
+}
+.form-delete .form-group .confirm button:hover {
+    background: white;
+}
+.form-delete .form-group .confirm .none:hover {
+    background: white;
+}
+.form-delete .form-group span {
+    color: white;
+    width: 100%;
+    text-align: center;
+    line-height: 20px;
+    font-size: 2rem;
+    margin-bottom: 25px;
+}
+.form-delete .form-group .confirm .none{
+    background: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    color: #007bff;
+    padding: 10px 0px;
+    border-radius: 5px;
+}
+.form-delete .form-group select {
+    text-align: center;
+    border: 0;
+    outline: none;
+    padding: 5px 0px;
+}
+.form-delete .btn-close {
+    position: absolute;
+    top: -2%;
+    right: 0;
+    font-size: 2rem;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.6);
+}
+.form-delete .btn-close:hover {
+    color: white;
+}
+.form-orders {
+    padding: 100px 50px;
+}
+.form-orders .btn-close {
+    font-size: 3rem;
+    top: -3%;
+}
+.li-admin:hover {
+    color: red;
+    text-decoration: underline;
+}

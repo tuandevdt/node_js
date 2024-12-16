@@ -1,0 +1,61 @@
+<%- include('../../layout/header') %>
+
+    <main class="main">
+        <div class="categories container">
+            <h1>Quản lý bình luận</h1>
+            <div class="d-flex justify-content-between">
+            </div>
+
+            <table class="table table-striped table-light">
+                <thead>
+                    <tr class="table-dark">
+                        <th scope="col">ID</th>
+                        <th scope="col">User Name</th>
+                        <th scope="col">Product</th>
+                        <th scope="col">Rating</th>
+                        <th scope="col">Text</th>
+                        <th scope="col">More</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% reviews.forEach((item) => { %>
+                        <tr>
+                            <th scope="row">
+                                <%= item.ID %>
+                            </th>
+                            <td>
+                                <%= item.username %>
+                            </td>
+                            <td>
+                                <img style="height: 80px;" src="/<%= item.image %>" alt="">
+                            </td>
+                            <td>
+                                <%= item.rating %> sao
+                            </td>
+                            <td>
+                                <%= item.text %>
+                            </td>
+                            <td class="more">
+                                <button class="btn-delete-category btn btn-dark" value="" onclick="deleteReview('<%= item.ID %>')">Delete</button>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+                <div class="form-delete none-active">
+                    <form id="form-submit-delete" action="" method="POST">
+                        <div class="form-group">
+                            <span>Xác nhận xóa?</span>
+                            <input id="id-update" type="hidden" name="id-xoa" value="">
+                            <div class="confirm">
+                                <a id="confirmDelete" href="">Xóa</a>
+                                <div class="none">Hủy</div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </table>
+
+        </div>
+    </main>
+    <script src="/js/admin.js"></script>
+    <%- include('../../layout/footer') %>

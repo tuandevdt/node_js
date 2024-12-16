@@ -1,0 +1,19 @@
+<%- include('../../layout/header') %>
+    <main class="main">
+        <div class="categories">
+            <h1>Cập nhật sản phẩm</h1>
+            <form action="/admin/products/update/<%= data[0].id%>" method="POST" enctype="multipart/form-data">
+                <label for="">Product Name</label>
+                <input type="hidden" name="id" value="<%= data[0].id%>">
+                <input type="text" class="form-control" name="name" placeholder="Enter Name" value="<%= data[0].name%>" required>
+                <label for="">Price</label>
+                <input type="number" name="price" class="form-control" placeholder="Enter Price" value="<%= data[0].price%>" required>
+                <label for="">Description</label>
+                <input type="text" class="form-control" name="description" placeholder="Description" value="<%= data[0].description%>" required>
+                <label for="">Image</label>
+                <input type="file" class="form-control" name="image" placeholder="image" value="<%= data[0].image%>" required>
+                <button class="btn btn-dark">Submit</button>
+            </form>
+        </div>
+    </main>
+    <%- include('../../layout/footer') %>
